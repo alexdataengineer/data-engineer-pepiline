@@ -214,5 +214,4 @@ For questions or support:
 - Check the documentation
 
 ---
-
-**Built with ❤️ by Alexsander - Data Engineer**
+ Alexsander - Data Engineer**
