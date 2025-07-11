@@ -59,33 +59,7 @@ Execute o arquivo gerado no Snowflake:
 @deploy_snowpipe.sql
 ```
 
-## ⚙️ Configurações Dinâmicas
-
-### Variáveis Disponíveis
-
-```bash
-# Credenciais do Snowflake
-SNOWFLAKE_USER=ALEXBETIM2025
-SNOWFLAKE_PASSWORD=sua_senha_aqui
-SNOWFLAKE_ACCOUNT=FYRESSZ-ME75053
-SNOWFLAKE_ROLE=ACCOUNTADMIN
-SNOWFLAKE_WAREHOUSE=COMPUTE_WH
-SNOWFLAKE_DATABASE=STANGING
-SNOWFLAKE_SCHEMA=AZURE_SYNAPSE
-
-# Configurações do Azure Blob Storage
-AZURE_STORAGE_ACCOUNT=lakeiqbetim
-AZURE_CONTAINER=raw
-AZURE_SAS_TOKEN=seu_token_aqui
-
-# Configurações do Snowpipe
-SNOWPIPE_NAME=station_information_pipe
-TASK_NAME=process_station_information_task
-WAREHOUSE_TASK=COMPUTE_WH_TASK
-SCHEDULE_INTERVAL=1 minute
-
-# Configurações dos arquivos
-JSON_FILE_PATH=gbfs/en/station_information.json
+/station_information.json
 ```
 
 ### Como Funciona
