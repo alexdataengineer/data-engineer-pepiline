@@ -36,18 +36,6 @@ snowpipe/station_information/
    cp config.env.example config.env
    ```
 
-2. **Edite o arquivo `config.env`** com suas configurações reais:
-   ```bash
-   # Credenciais do Snowflake
-   SNOWFLAKE_USER=ALEXBETIM2025
-   SNOWFLAKE_PASSWORD=sua_senha_aqui
-   SNOWFLAKE_ACCOUNT=FYRESSZ-ME75053
-   
-   # Configurações do Azure
-   AZURE_STORAGE_ACCOUNT=lakeiqbetim
-   AZURE_SAS_TOKEN=seu_token_aqui
-   ```
-
 ### Passo 2: Gerar Arquivos SQL Dinamicamente
 
 Execute o script Python para gerar os arquivos SQL com as configurações:
