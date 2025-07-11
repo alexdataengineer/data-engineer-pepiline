@@ -1,0 +1,51 @@
+# =====================================================
+# Arquivos sensíveis - NÃO COMMITAR
+# =====================================================
+
+# Arquivos de configuração com senhas
+config.env
+*.env
+.env
+
+# Arquivos de credenciais
+credential/*.json
+linkedService/*.json
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+
+# Arquivos de cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos de teste
+test_*.py
+*_test.py
+
+# Arquivos SQL gerados dinamicamente
+snowpipe/*/01_create_stage.sql
+snowpipe/*/02_create_tables.sql
+snowpipe/*/03_create_snowpipe.sql
+snowpipe/*/05_create_task.sql
+snowpipe/*/deploy_snowpipe.sql 
