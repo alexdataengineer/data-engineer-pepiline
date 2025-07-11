@@ -2,12 +2,12 @@
 
 ## Snowflake Account Information
 
-- **Account Identifier**: FYRESSZ-ME75053
-- **Data Sharing Account Identifier**: FYRESSZ.ME75053
+- **Account Identifier**: FYRESSZ######
+- **Data Sharing Account Identifier**: FYRE#####
 - **Organization Name**: FYRESSZ
 - **Account Name**: ME75053
-- **Account/Server URL**: FYRESSZ-ME75053.snowflakecomputing.com
-- **User Name**: ALEXBETIM2025
+- **Account/Server URL**: FYRESSZ-ME75053.##############
+- **User Name**: ###############
 - **Role**: ACCOUNTADMIN
 - **Account Locator**: WU43756
 - **Cloud Platform**: AZURE
