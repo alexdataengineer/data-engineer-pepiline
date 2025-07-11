@@ -1,173 +1,173 @@
-# 🎯 Resumo da Solução: Snowpipe com Configuração Dinâmica
+# 🎯 Solution Summary: Snowpipe with Dynamic Configuration
 
-## ✅ Problema Resolvido
+## ✅ Problem Solved
 
-**Problema**: Senhas hardcoded no código SQL, impossibilitando o uso seguro no Git.
+**Problem**: Passwords hardcoded in SQL code, making it impossible to use safely in Git.
 
-**Solução**: Sistema de configuração dinâmica que separa credenciais do código.
+**Solution**: Dynamic configuration system that separates credentials from code.
 
-## 🔧 Solução Implementada
+## 🔧 Implemented Solution
 
-### 1. Configuração Dinâmica
-- ✅ **Arquivos de configuração**: `config.env` (não commitado) e `config.env.example` (template)
-- ✅ **Script de geração**: `generate_sql.py` substitui placeholders por valores reais
-- ✅ **Script de limpeza**: `clean_generated_files.py` remove arquivos gerados
-- ✅ **Proteção Git**: `.gitignore` protege arquivos sensíveis
+### 1. Dynamic Configuration
+- ✅ **Configuration files**: `config.env` (not committed) and `config.env.example` (template)
+- ✅ **Generation script**: `generate_sql.py` replaces placeholders with real values
+- ✅ **Cleanup script**: `clean_generated_files.py` removes generated files
+- ✅ **Git protection**: `.gitignore` protects sensitive files
 
-### 2. Estrutura Segura
+### 2. Secure Structure
 ```
 snowpipe/station_information/
-├── config.env.example          # Template (seguro para Git)
-├── config.env                  # Configuração real (NÃO COMMITAR)
-├── generate_sql.py             # Script de geração dinâmica
-├── clean_generated_files.py    # Script de limpeza
-├── 04_create_stream.sql        # Arquivos fixos
-├── 06_monitoring_queries.sql   # (sem credenciais)
+├── config.env.example          # Template (safe for Git)
+├── config.env                  # Real configuration (DO NOT COMMIT)
+├── generate_sql.py             # Dynamic generation script
+├── clean_generated_files.py    # Cleanup script
+├── 04_create_stream.sql        # Fixed files
+├── 06_monitoring_queries.sql   # (no credentials)
 ├── 07_setup_azure_event_grid.sql
-└── README.md                   # Documentação
+└── README.md                   # Documentation
 ```
 
-### 3. Fluxo de Trabalho
-1. **Configure**: `cp config.env.example config.env` + edite credenciais
-2. **Gere**: `python3 generate_sql.py` → cria arquivos SQL com valores reais
-3. **Execute**: `@deploy_snowpipe.sql` no Snowflake
-4. **Limpe**: `python3 clean_generated_files.py` → remove arquivos gerados
-5. **Commit**: Apenas arquivos seguros vão para o Git
+### 3. Workflow
+1. **Configure**: `cp config.env.example config.env` + edit credentials
+2. **Generate**: `python3 generate_sql.py` → creates SQL files with real values
+3. **Execute**: `@deploy_snowpipe.sql` in Snowflake
+4. **Clean**: `python3 clean_generated_files.py` → removes generated files
+5. **Commit**: Only safe files go to Git
 
-## 🛡️ Segurança Implementada
+## 🛡️ Implemented Security
 
-### Proteções Automáticas
-- ✅ `.gitignore` bloqueia arquivos sensíveis
-- ✅ `config.env` nunca é commitado
-- ✅ Senhas não ficam no código
-- ✅ Arquivos SQL gerados são removidos
+### Automatic Protections
+- ✅ `.gitignore` blocks sensitive files
+- ✅ `config.env` never gets committed
+- ✅ Passwords not in code
+- ✅ Generated SQL files are removed
 
-### Verificações de Segurança
+### Security Checks
 ```bash
-# Verificar se não há senhas no código
+# Check if no passwords in code
 grep -r "Juniorcamisa1007" . --exclude-dir=.git
 grep -r "sp=racwdlme" . --exclude-dir=.git
 
-# Verificar se config.env não está sendo commitado
+# Check if config.env is not being committed
 git status | grep config.env
 ```
 
-## 🚀 Como Usar
+## 🚀 How to Use
 
-### Para Desenvolvedores
+### For Developers
 ```bash
-# 1. Clone e configure
+# 1. Clone and configure
 git clone <repo>
 cd snowpipe/station_information
 cp config.env.example config.env
-# Edite config.env com suas credenciais
+# Edit config.env with your credentials
 
-# 2. Gere e execute
+# 2. Generate and execute
 python3 generate_sql.py
-# Execute deploy_snowpipe.sql no Snowflake
+# Execute deploy_snowpipe.sql in Snowflake
 
-# 3. Limpe e commit
+# 3. Clean and commit
 python3 clean_generated_files.py
 git add config.env.example generate_sql.py README.md
-git commit -m "Configuração dinâmica segura"
+git commit -m "Secure dynamic configuration"
 ```
 
-### Para Produção
+### For Production
 ```bash
-# Configure variáveis de ambiente
-export SNOWFLAKE_PASSWORD="senha_segura"
-export AZURE_SAS_TOKEN="token_seguro"
+# Configure environment variables
+export SNOWFLAKE_PASSWORD="secure_password"
+export AZURE_SAS_TOKEN="secure_token"
 
 # Execute deploy
 python3 generate_sql.py
-# Execute no Snowflake
+# Execute in Snowflake
 ```
 
-## 📊 Vantagens da Solução
+## 📊 Solution Benefits
 
-### ✅ Segurança
-- Senhas não ficam no código
-- Arquivos sensíveis protegidos pelo `.gitignore`
-- Configuração dinâmica evita hardcoding
+### ✅ Security
+- Passwords not in code
+- Sensitive files protected by `.gitignore`
+- Dynamic configuration avoids hardcoding
 
-### ✅ Flexibilidade
-- Fácil mudança de configurações
-- Mesmo código para diferentes ambientes
-- Suporte a CI/CD com secrets
+### ✅ Flexibility
+- Easy configuration changes
+- Same code for different environments
+- CI/CD support with secrets
 
-### ✅ Manutenibilidade
-- Código limpo e organizado
-- Documentação completa
-- Scripts automatizados
+### ✅ Maintainability
+- Clean and organized code
+- Complete documentation
+- Automated scripts
 
-### ✅ Reutilização
-- Templates reutilizáveis
-- Configuração para múltiplos projetos
-- Padrão consistente
+### ✅ Reusability
+- Reusable templates
+- Configuration for multiple projects
+- Consistent patterns
 
-## 🔄 Agendamento Automático
+## 🔄 Automatic Scheduling
 
-### Snowpipe Configurado
-- ✅ **Auto-ingest**: Habilitado
+### Configured Snowpipe
+- ✅ **Auto-ingest**: Enabled
 - ✅ **Source**: Azure Blob Storage
-- ✅ **Target**: Tabela raw JSON
+- ✅ **Target**: Raw JSON table
 - ✅ **Trigger**: Azure Event Grid
 
-### Task com Agendamento
-- ✅ **Schedule**: A cada 1 minuto
-- ✅ **Warehouse**: XSMALL (econômico)
-- ✅ **Função**: Processar dados raw → estruturados
-- ✅ **Auto-resume**: Habilitado
+### Task with Scheduling
+- ✅ **Schedule**: Every 1 minute
+- ✅ **Warehouse**: XSMALL (cost-effective)
+- ✅ **Function**: Process raw data → structured
+- ✅ **Auto-resume**: Enabled
 
-## 📈 Monitoramento
+## 📈 Monitoring
 
-### Queries de Monitoramento
+### Monitoring Queries
 ```sql
--- Status do Snowpipe
+-- Snowpipe Status
 SELECT PIPE_STATE FROM INFORMATION_SCHEMA.PIPES;
 
--- Status da Task
+-- Task Status
 SELECT TASK_STATE FROM INFORMATION_SCHEMA.TASKS;
 
--- Dados processados
+-- Processed Data
 SELECT COUNT(*) FROM STATION_INFORMATION;
 ```
 
-### Dashboard Completo
-Execute `06_monitoring_queries.sql` para:
-- Status do Snowpipe
-- Execuções recentes
-- Status das Tasks
-- Contagem de dados
-- Erros recentes
+### Complete Dashboard
+Execute `06_monitoring_queries.sql` for:
+- Snowpipe status
+- Recent executions
+- Task status
+- Data counts
+- Recent errors
 
-## 🎯 Resultado Final
+## 🎯 Final Result
 
-### ✅ Funcionalidades Implementadas
-1. **Snowpipe** com auto-ingest do Azure Blob Storage
-2. **Task** com agendamento automático (1 minuto)
-3. **Configuração dinâmica** segura para Git
-4. **Monitoramento** completo
-5. **Documentação** detalhada
+### ✅ Implemented Features
+1. **Snowpipe** with auto-ingest from Azure Blob Storage
+2. **Task** with automatic scheduling (1 minute)
+3. **Dynamic configuration** safe for Git
+4. **Complete monitoring**
+5. **Detailed documentation**
 
-### ✅ Segurança Garantida
-1. **Senhas protegidas** em arquivos não commitados
-2. **Configuração dinâmica** sem hardcoding
-3. **Scripts de limpeza** para manter repositório limpo
-4. **Guia de segurança** completo
+### ✅ Guaranteed Security
+1. **Protected passwords** in non-committed files
+2. **Dynamic configuration** without hardcoding
+3. **Cleanup scripts** to keep repository clean
+4. **Complete security guide**
 
-### ✅ Pronto para Produção
-1. **Deploy automatizado** com scripts
-2. **Monitoramento** em tempo real
-3. **Troubleshooting** documentado
-4. **CI/CD** preparado
+### ✅ Production Ready
+1. **Automated deployment** with scripts
+2. **Real-time monitoring**
+3. **Documented troubleshooting**
+4. **CI/CD prepared**
 
-## 🚀 Próximos Passos
+## 🚀 Next Steps
 
-1. **Configure** o `config.env` com suas credenciais
+1. **Configure** `config.env` with your credentials
 2. **Execute** `python3 generate_sql.py`
-3. **Deploy** no Snowflake com `deploy_snowpipe.sql`
+3. **Deploy** in Snowflake with `deploy_snowpipe.sql`
 4. **Configure** Azure Event Grid
-5. **Monitore** com as queries fornecidas
+5. **Monitor** with provided queries
 
-**A solução está 100% funcional e segura para uso em produção! 🎉** 
+**The solution is 100% functional and secure for production use! 🎉** 

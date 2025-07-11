@@ -1,6 +1,6 @@
-# Configuração do Snowflake no Azure Synapse
+# Snowflake Configuration in Azure Synapse
 
-## Informações da Conta Snowflake
+## Snowflake Account Information
 
 - **Account Identifier**: FYRESSZ-ME75053
 - **Data Sharing Account Identifier**: FYRESSZ.ME75053
@@ -13,30 +13,30 @@
 - **Cloud Platform**: AZURE
 - **Edition**: Enterprise
 
-## Arquivos Criados
+## Created Files
 
 ### 1. Linked Service
-- **Arquivo**: `linkedService/SnowflakeLinkedService.json`
-- **Propósito**: Configuração da conexão com o Snowflake
-- **Ação Necessária**: Substituir `YOUR_PASSWORD_HERE` pela senha real
+- **File**: `linkedService/SnowflakeLinkedService.json`
+- **Purpose**: Snowflake connection configuration
+- **Required Action**: Replace `YOUR_PASSWORD_HERE` with real password
 
 ### 2. Credentials
-- **Arquivo**: `credential/SnowflakeCredential.json`
-- **Propósito**: Armazenamento seguro das credenciais
-- **Ação Necessária**: Substituir `YOUR_PASSWORD_HERE` pela senha real
+- **File**: `credential/SnowflakeCredential.json`
+- **Purpose**: Secure credential storage
+- **Required Action**: Replace `YOUR_PASSWORD_HERE` with real password
 
 ### 3. Datasets
-- **SnowflakeDataset.json**: Dataset para ler dados do Snowflake
-- **SnowflakeOutputDataset.json**: Dataset para salvar dados extraídos
+- **SnowflakeDataset.json**: Dataset to read data from Snowflake
+- **SnowflakeOutputDataset.json**: Dataset to save extracted data
 
 ### 4. Pipeline
-- **Arquivo**: `pipeline/snowflake_data_extraction.json`
-- **Propósito**: Pipeline de exemplo para extrair dados do Snowflake
+- **File**: `pipeline/snowflake_data_extraction.json`
+- **Purpose**: Example pipeline to extract data from Snowflake
 
-## Passos para Configuração
+## Setup Steps
 
-### 1. Configurar Credenciais
-Edite o arquivo `credential/SnowflakeCredential.json` e substitua `YOUR_PASSWORD_HERE` pela sua senha real:
+### 1. Configure Credentials
+Edit the file `credential/SnowflakeCredential.json` and replace `YOUR_PASSWORD_HERE` with your real password:
 
 ```json
 {
@@ -45,78 +45,78 @@ Edite o arquivo `credential/SnowflakeCredential.json` e substitua `YOUR_PASSWORD
         "userName": "ALEXBETIM2025",
         "password": {
             "type": "SecureString",
-            "value": "SUA_SENHA_AQUI"
+            "value": "YOUR_REAL_PASSWORD_HERE"
         }
     }
 }
 ```
 
-### 2. Publicar no Azure Synapse
-Execute os seguintes comandos para publicar as configurações:
+### 2. Publish to Azure Synapse
+Execute the following commands to publish configurations:
 
 ```bash
-# Publicar linked service
-az synapse linked-service create --workspace-name SEU_WORKSPACE --name SnowflakeLinkedService --file @linkedService/SnowflakeLinkedService.json
+# Publish linked service
+az synapse linked-service create --workspace-name YOUR_WORKSPACE --name SnowflakeLinkedService --file @linkedService/SnowflakeLinkedService.json
 
-# Publicar credentials
-az synapse credential create --workspace-name SEU_WORKSPACE --name SnowflakeCredential --file @credential/SnowflakeCredential.json
+# Publish credentials
+az synapse credential create --workspace-name YOUR_WORKSPACE --name SnowflakeCredential --file @credential/SnowflakeCredential.json
 
-# Publicar datasets
-az synapse dataset create --workspace-name SEU_WORKSPACE --name SnowflakeDataset --file @dataset/SnowflakeDataset.json
-az synapse dataset create --workspace-name SEU_WORKSPACE --name SnowflakeOutputDataset --file @dataset/SnowflakeOutputDataset.json
+# Publish datasets
+az synapse dataset create --workspace-name YOUR_WORKSPACE --name SnowflakeDataset --file @dataset/SnowflakeDataset.json
+az synapse dataset create --workspace-name YOUR_WORKSPACE --name SnowflakeOutputDataset --file @dataset/SnowflakeOutputDataset.json
 
-# Publicar pipeline
-az synapse pipeline create --workspace-name SEU_WORKSPACE --name snowflake_data_extraction --file @pipeline/snowflake_data_extraction.json
+# Publish pipeline
+az synapse pipeline create --workspace-name YOUR_WORKSPACE --name snowflake_data_extraction --file @pipeline/snowflake_data_extraction.json
 ```
 
-### 3. Testar Conexão
-No Azure Synapse Studio:
-1. Vá para "Manage" > "Linked Services"
-2. Encontre "SnowflakeLinkedService"
-3. Clique em "Test connection"
+### 3. Test Connection
+In Azure Synapse Studio:
+1. Go to "Manage" > "Linked Services"
+2. Find "SnowflakeLinkedService"
+3. Click "Test connection"
 
-## Exemplo de Uso
+## Usage Example
 
-O pipeline `snowflake_data_extraction` demonstra como:
-- Conectar ao Snowflake
-- Executar uma query SQL
-- Extrair dados da tabela CUSTOMER
-- Salvar os resultados em formato JSON no Azure Data Lake
+The `snowflake_data_extraction` pipeline demonstrates how to:
+- Connect to Snowflake
+- Execute SQL query
+- Extract data from CUSTOMER table
+- Save results in JSON format to Azure Data Lake
 
-## Queries Úteis
+## Useful Queries
 
-### Verificar Conexão
+### Test Connection
 ```sql
 SELECT CURRENT_USER(), CURRENT_ROLE(), CURRENT_ACCOUNT();
 ```
 
-### Listar Databases
+### List Databases
 ```sql
 SHOW DATABASES;
 ```
 
-### Listar Schemas
+### List Schemas
 ```sql
 SHOW SCHEMAS IN DATABASE SNOWFLAKE_SAMPLE_DATA;
 ```
 
-### Listar Tabelas
+### List Tables
 ```sql
 SHOW TABLES IN SCHEMA SNOWFLAKE_SAMPLE_DATA.TPCH_SF1;
 ```
 
 ## Troubleshooting
 
-### Erro de Conexão
-- Verifique se a senha está correta
-- Confirme se o usuário tem as permissões necessárias
-- Verifique se o firewall permite conexões
+### Connection Error
+- Verify password is correct
+- Confirm user has necessary permissions
+- Check if firewall allows connections
 
-### Erro de Warehouse
-- Certifique-se de que o warehouse `COMPUTE_WH` existe
-- Verifique se o usuário tem acesso ao warehouse
+### Warehouse Error
+- Ensure warehouse `COMPUTE_WH` exists
+- Verify user has access to warehouse
 
-### Erro de Database/Schema
-- Confirme se o database `SNOWFLAKE_SAMPLE_DATA` existe
-- Verifique se o schema `TPCH_SF1` existe
-- Confirme se o usuário tem acesso aos objetos 
+### Database/Schema Error
+- Confirm database `SNOWFLAKE_SAMPLE_DATA` exists
+- Verify schema `TPCH_SF1` exists
+- Confirm user has access to objects 

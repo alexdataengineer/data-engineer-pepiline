@@ -1,39 +1,39 @@
-# 🔐 Guia de Segurança para Git
+# 🔐 Git Security Guide
 
-## ⚠️ IMPORTANTE: Proteção de Senhas
+## ⚠️ IMPORTANT: Password Protection
 
-Este projeto usa configurações dinâmicas para proteger senhas e credenciais sensíveis. **NUNCA** commite arquivos com senhas reais!
+This project uses dynamic configurations to protect passwords and sensitive credentials. **NEVER** commit files with real passwords!
 
-## 📁 Arquivos SEGUROS para Git
+## 📁 SAFE Files for Git
 
-### ✅ Arquivos que podem ser commitados:
-- `config.env.example` - Template de configuração (sem senhas reais)
-- `generate_sql.py` - Script de geração dinâmica
-- `clean_generated_files.py` - Script de limpeza
-- `README.md` - Documentação
-- `*.sql` - Arquivos SQL fixos (sem credenciais)
+### ✅ Files that can be committed:
+- `config.env.example` - Configuration template (no real passwords)
+- `generate_sql.py` - Dynamic generation script
+- `clean_generated_files.py` - Cleanup script
+- `README.md` - Documentation
+- `*.sql` - Fixed SQL files (no credentials)
 
-### ❌ Arquivos que NÃO devem ser commitados:
-- `config.env` - **CONTÉM SENHAS REAIS**
-- `credential/*.json` - **CONTÉM CREDENCIAIS**
-- `linkedService/*.json` - **CONTÉM CONFIGURAÇÕES SENSÍVEIS**
-- Arquivos SQL gerados dinamicamente
+### ❌ Files that should NOT be committed:
+- `config.env` - **CONTAINS REAL PASSWORDS**
+- `credential/*.json` - **CONTAINS CREDENTIALS**
+- `linkedService/*.json` - **CONTAINS SENSITIVE CONFIGURATIONS**
+- Dynamically generated SQL files
 
-## 🛡️ Proteções Implementadas
+## 🛡️ Implemented Protections
 
 ### 1. .gitignore
-O arquivo `.gitignore` protege automaticamente:
+The `.gitignore` file automatically protects:
 ```gitignore
-# Arquivos de configuração com senhas
+# Password configuration files
 config.env
 *.env
 .env
 
-# Arquivos de credenciais
+# Credential files
 credential/*.json
 linkedService/*.json
 
-# Arquivos SQL gerados dinamicamente
+# Dynamically generated SQL files
 snowpipe/*/01_create_stage.sql
 snowpipe/*/02_create_tables.sql
 snowpipe/*/03_create_snowpipe.sql
@@ -41,92 +41,92 @@ snowpipe/*/05_create_task.sql
 snowpipe/*/deploy_snowpipe.sql
 ```
 
-### 2. Configuração Dinâmica
-- Senhas ficam apenas no `config.env` (não commitado)
-- Scripts SQL são gerados dinamicamente
-- Templates usam placeholders como `${SNOWFLAKE_USER}`
+### 2. Dynamic Configuration
+- Passwords stay only in `config.env` (not committed)
+- SQL scripts are generated dynamically
+- Templates use placeholders like `${SNOWFLAKE_USER}`
 
-## 🚀 Fluxo de Trabalho Seguro
+## 🚀 Secure Workflow
 
-### Para Desenvolvedores
+### For Developers
 
-1. **Clone o repositório**:
+1. **Clone the repository**:
    ```bash
    git clone <repo>
    cd snowpipe/station_information
    ```
 
-2. **Configure suas credenciais**:
+2. **Configure your credentials**:
    ```bash
    cp config.env.example config.env
-   # Edite config.env com suas senhas reais
+   # Edit config.env with your real passwords
    ```
 
-3. **Gere os arquivos SQL**:
+3. **Generate SQL files**:
    ```bash
    python3 generate_sql.py
    ```
 
-4. **Execute no Snowflake**:
+4. **Execute in Snowflake**:
    ```sql
    @deploy_snowpipe.sql
    ```
 
-5. **Limpe os arquivos gerados**:
+5. **Clean generated files**:
    ```bash
    python3 clean_generated_files.py
    ```
 
-6. **Commit apenas arquivos seguros**:
+6. **Commit only safe files**:
    ```bash
    git add config.env.example generate_sql.py README.md
-   git commit -m "Adiciona configuração dinâmica segura"
+   git commit -m "Add secure dynamic configuration"
    ```
 
-### Para Deploy em Produção
+### For Production Deployment
 
-1. **Configure variáveis de ambiente** no servidor
-2. **Execute o script de geração**
-3. **Execute o deploy no Snowflake**
-4. **Nunca commite o config.env**
+1. **Configure environment variables** on the server
+2. **Execute the generation script**
+3. **Execute the deploy in Snowflake**
+4. **Never commit config.env**
 
-## 🔍 Verificações de Segurança
+## 🔍 Security Checks
 
-### Antes de Fazer Commit
+### Before Committing
 
 ```bash
-# Verifique se não há senhas no código
+# Check if there are no passwords in code
 grep -r "Juniorcamisa1007" . --exclude-dir=.git
 grep -r "sp=racwdlme" . --exclude-dir=.git
 
-# Verifique se config.env não está sendo commitado
+# Check if config.env is not being committed
 git status | grep config.env
 ```
 
-### Verificar Arquivos Sensíveis
+### Check Sensitive Files
 
 ```bash
-# Lista arquivos que podem conter senhas
+# List files that might contain passwords
 find . -name "*.env" -o -name "*.json" | grep -v node_modules
 ```
 
-## 🚨 Cenários de Risco
+## 🚨 Risk Scenarios
 
-### ❌ NUNCA FAÇA:
-- Commitar `config.env` com senhas reais
-- Commitar arquivos `credential/*.json`
-- Commitar arquivos `linkedService/*.json`
-- Commitar arquivos SQL gerados dinamicamente
-- Colocar senhas em comentários de código
+### ❌ NEVER DO:
+- Commit `config.env` with real passwords
+- Commit `credential/*.json` files
+- Commit `linkedService/*.json` files
+- Commit dynamically generated SQL files
+- Put passwords in code comments
 
-### ✅ SEMPRE FAÇA:
-- Use `config.env.example` como template
-- Gere arquivos SQL dinamicamente
-- Limpe arquivos gerados antes do commit
-- Use variáveis de ambiente em produção
-- Rotacione senhas regularmente
+### ✅ ALWAYS DO:
+- Use `config.env.example` as template
+- Generate SQL files dynamically
+- Clean generated files before commit
+- Use environment variables in production
+- Rotate passwords regularly
 
-## 🔧 Configuração para CI/CD
+## 🔧 CI/CD Configuration
 
 ### GitHub Actions
 ```yaml
@@ -147,40 +147,40 @@ find . -name "*.env" -o -name "*.json" | grep -v node_modules
     SNOWFLAKE_PASSWORD: $(SNOWFLAKE_PASSWORD)
 ```
 
-## 📋 Checklist de Segurança
+## 📋 Security Checklist
 
-- [ ] `config.env` está no `.gitignore`
-- [ ] `credential/*.json` está no `.gitignore`
-- [ ] `linkedService/*.json` está no `.gitignore`
-- [ ] Arquivos SQL gerados estão no `.gitignore`
-- [ ] `config.env.example` não contém senhas reais
-- [ ] Scripts usam placeholders dinâmicos
-- [ ] Senhas não estão hardcoded no código
-- [ ] Variáveis de ambiente configuradas em produção
+- [ ] `config.env` is in `.gitignore`
+- [ ] `credential/*.json` is in `.gitignore`
+- [ ] `linkedService/*.json` is in `.gitignore`
+- [ ] Generated SQL files are in `.gitignore`
+- [ ] `config.env.example` contains no real passwords
+- [ ] Scripts use dynamic placeholders
+- [ ] Passwords are not hardcoded in code
+- [ ] Environment variables configured in production
 
-## 🆘 Em Caso de Vazamento
+## 🆘 In Case of Leak
 
-1. **Imediatamente**:
-   - Rotacione todas as senhas
-   - Revogue tokens SAS
-   - Altere credenciais do Snowflake
+1. **Immediately**:
+   - Rotate all passwords
+   - Revoke SAS tokens
+   - Change Snowflake credentials
 
-2. **Investigue**:
-   - Verifique logs do Git
-   - Identifique onde ocorreu o vazamento
-   - Corrija a configuração
+2. **Investigate**:
+   - Check Git logs
+   - Identify where leak occurred
+   - Fix configuration
 
-3. **Prevenção**:
-   - Revise `.gitignore`
-   - Implemente hooks do Git
-   - Configure alertas de segurança
+3. **Prevention**:
+   - Review `.gitignore`
+   - Implement Git hooks
+   - Configure security alerts
 
-## 📞 Suporte
+## 📞 Support
 
-Se encontrar problemas de segurança:
-1. Revise este guia
-2. Verifique a configuração do `.gitignore`
-3. Use os scripts de limpeza fornecidos
-4. Consulte a documentação do projeto
+If you encounter security issues:
+1. Review this guide
+2. Check `.gitignore` configuration
+3. Use provided cleanup scripts
+4. Consult project documentation
 
-**Lembre-se: Segurança em primeiro lugar! 🔒** 
+**Remember: Security first! 🔒** 

@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SnowflakeLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"typeProperties": {
+			"schema": "TPCH_SF1",
+			"table": "CUSTOMER"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+} 
