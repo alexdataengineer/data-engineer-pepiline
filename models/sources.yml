@@ -1,0 +1,72 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw data from Snowflake tables"
+    database: "{{ var('snowflake_database') }}"
+    schema: "{{ var('snowflake_schema') }}"
+    tables:
+      - name: station_information
+        description: "Raw station information data from Snowpipe"
+        columns:
+          - name: station_id
+            description: "Unique identifier for the station"
+            tests:
+              - not_null
+              - unique
+          - name: name
+            description: "Station name"
+            tests:
+              - not_null
+          - name: region_id
+            description: "Region identifier"
+          - name: capacity
+            description: "Station capacity"
+            tests:
+              - not_null
+          - name: lat
+            description: "Latitude coordinate"
+            tests:
+              - not_null
+          - name: lon
+            description: "Longitude coordinate"
+            tests:
+              - not_null
+          - name: short_name
+            description: "Short name for the station"
+          - name: external_id
+            description: "External system identifier"
+          - name: station_type
+            description: "Type of station"
+          - name: has_kiosk
+            description: "Whether station has a kiosk"
+          - name: electric_bike_surcharge_waiver
+            description: "Whether station has electric bike surcharge waiver"
+          - name: eightd_has_key_dispenser
+            description: "Whether station has key dispenser"
+          - name: rental_methods
+            description: "Available rental methods"
+          - name: rental_uris
+            description: "Rental URIs"
+          - name: eightd_station_services
+            description: "Station services"
+          - name: load_timestamp
+            description: "Timestamp when data was loaded"
+            tests:
+              - not_null
+
+      - name: _station_raw_json
+        description: "Raw JSON data from Snowpipe"
+        columns:
+          - name: raw
+            description: "Raw JSON data"
+          - name: file_name
+            description: "Source file name"
+          - name: file_row_number
+            description: "Row number in source file"
+          - name: file_content_key
+            description: "Content key"
+          - name: file_last_modified
+            description: "Last modified timestamp"
+          - name: load_timestamp
+            description: "Timestamp when data was loaded" 

@@ -1,0 +1,76 @@
+name: 'citi_bike_analytics'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'citi_bike_analytics'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+models:
+  citi_bike_analytics:
+    # Config indicated by + and applies to all files under models/example/
+    bronze:
+      +materialized: table
+    silver:
+      +materialized: table
+    gold:
+      +materialized: table
+
+# Snowflake specific configurations
+vars:
+  # Database and schema configurations
+  snowflake_database: "STANGING"
+  snowflake_schema: "AZURE_SYNAPSE"
+  
+  # Source table configurations
+  raw_station_table: "STATION_INFORMATION"
+  raw_json_table: "_STATION_RAW_JSON"
+  
+  # Target schema configurations
+  bronze_schema: "BRONZE"
+  silver_schema: "SILVER"
+  gold_schema: "GOLD"
+
+# Documentation
+docs-paths: ["docs"]
+asset-paths: ["assets"]
+
+# Seeds configuration
+seeds:
+  citi_bike_analytics:
+    +column_types:
+      station_id: varchar(50)
+      name: varchar(255)
+      region_id: varchar(50)
+      capacity: number(10,0)
+      lat: float
+      lon: float
+      short_name: varchar(100)
+      external_id: varchar(100)
+      station_type: varchar(50)
+      has_kiosk: boolean
+      electric_bike_surcharge_waiver: boolean
+      eightd_has_key_dispenser: boolean
+      rental_methods: variant
+      rental_uris: variant
+      eightd_station_services: variant
+      load_timestamp: timestamp_ntz
+
+# Tests configuration
+tests:
+  citi_bike_analytics:
+    +store_failures: true
+    +warn_if: ">10"
+    +error_if: ">100" 
