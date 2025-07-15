@@ -246,4 +246,4 @@ GROUP BY data_layer;
 
 ---
 
-**Built with ❤️ by Alexsander - Data Engineer** 
+** Alexsander - Data Engineer** 
